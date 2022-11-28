@@ -1,5 +1,6 @@
 import React from 'react'
 import Ioncons from 'react-ionicons'
+import PropTypes from 'prop-types'
 
 const PriceList = ({
   items,
@@ -59,6 +60,12 @@ const PriceList = ({
       }
     </ul>
   )
+}
+
+PriceList.propTypes = {
+  items: PropTypes.array.isRequired,
+  onModifyItem: PropTypes.func.isRequired,
+  onDeleteItem: PropTypes.func.isRequired
 }
 
 export default PriceList
