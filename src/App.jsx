@@ -4,7 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import logo from './logo.svg'
 import './App.css'
 
-import PriceList from './components/PriceList'
+import { LIST_VIEW, CHART_VIEW } from './utility'
+import {
+  PriceList,
+  ViewTab
+} from './components'
 
 const items = [
   {
@@ -40,11 +44,15 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">在线记账</h1>
       </header>
-      <PriceList
+      <ViewTab
+        activeTab={LIST_VIEW}
+        onTabChange={(view) => { console.log(view) }}
+      />
+      {/* <PriceList
         items={items}
         onModifyItem={(item) => {alert(item.id)}}
         onDeleteItem={(item) => {alert(item)}}
-      />
+      /> */}
     </div>
   );
 }

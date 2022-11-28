@@ -2,7 +2,7 @@ import React from 'react'
 import Ioncons from 'react-ionicons'
 import PropTypes from 'prop-types'
 
-const PriceList = ({
+export const PriceList = ({
   items,
   onModifyItem,
   onDeleteItem
@@ -67,5 +67,3 @@ PriceList.propTypes = {
   onModifyItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired
 }
-
-export default PriceList
