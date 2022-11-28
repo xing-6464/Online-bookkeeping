@@ -1,4 +1,5 @@
 import React from 'react'
+import Ioncons from 'react-ionicons'
 
 const PriceList = ({
   items,
@@ -15,7 +16,13 @@ const PriceList = ({
             key={item.id}
           >
             <span className="col-1 badge bg-primary">
-              { item.category.name }
+              <Ioncons
+                className="rounded-circle"
+                fontSize="30px"
+                style={{ backgroundColor: '#007bff', padding: '5px'}}
+                color={'#fff'}
+                icon={item.category.iconName}
+              />
             </span>
             <span className="col-5 text-center">{ item.title }</span>
             <span className="col-2 fw-bold">
@@ -23,18 +30,30 @@ const PriceList = ({
               {item.price} 元
             </span>
             <span className="col-2">{ item.date }</span>
-            <button
-              className="col-1 btn btn-primary"
+            <a
+              className="col-1"
               onClick={() => onModifyItem(item)}
             >
-              编辑
-            </button>
-            <button
-              className="col-1 btn btn-danger"
+              <Ioncons
+                className="rounded-circle"
+                fontSize="30px"
+                style={{ backgroundColor: '#28a745', padding: '5px'}}
+                color={'#fff'}
+                icon='ios-create-outline'
+              />
+            </a>
+            <a
+              className="col-1"
               onClick={() => onDeleteItem(item)}
             >
-              删除
-            </button>
+              <Ioncons
+                className="rounded-circle"
+                fontSize="30px"
+                style={{ backgroundColor: '#dc3545', padding: '5px'}}
+                color={'#fff'}
+                icon='ios-close'
+              />
+            </a>
           </li>
         ))
       }
