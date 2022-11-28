@@ -7,7 +7,8 @@ import './App.css'
 import { LIST_VIEW, CHART_VIEW } from './utility'
 import {
   PriceList,
-  ViewTab
+  ViewTab,
+  TotalPrice
 } from './components'
 
 const items = [
@@ -44,10 +45,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">在线记账</h1>
       </header>
-      <ViewTab
+      <TotalPrice />
+      {/* <ViewTab
         activeTab={LIST_VIEW}
         onTabChange={(view) => { console.log(view) }}
-      />
+      /> */}
       {/* <PriceList
         items={items}
         onModifyItem={(item) => {alert(item.id)}}
