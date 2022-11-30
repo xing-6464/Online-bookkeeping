@@ -1,12 +1,15 @@
 import React,{ useState } from 'react'
 import PropTypes from 'prop-types'
-import { padLeft } from '../utility'
+import { padLeft, range } from '../utility'
 
 export const MonthPicker = ({
   year,
   month
 }) => {
   const [ isOpen, setIsOpen ] = useState(false)
+
+  const monthRange = range(12, 1)
+  const yearRange = range(9, -4).map(number => number + year)
 
   const toggleDropdown = (e) => {
     e.preventDefault()
@@ -26,10 +29,18 @@ export const MonthPicker = ({
           <div className="dropdown-menu" style={{ display: 'block' }}>
             <div className="row">
               <div className="col border-end">
-                <h2>hello</h2>
+                { yearRange.map((yearNumber, index) => (
+                  <a href="#" className="dropdown-item" key={index}>
+                    { yearNumber } 年
+                  </a>
+                ))}
               </div>
               <div className="col">
-                <h2>hello</h2>
+                { monthRange.map((monthNumber, index) => (
+                  <a href="#" className="dropdown-item" key={index}>
+                    { padLeft(monthNumber) } 月
+                  </a>
+                ))}
               </div>
             </div>
           </div>
