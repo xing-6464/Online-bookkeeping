@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import logo from '../logo.svg'
 import {
   LIST_VIEW,
   TYPE_INCOME,
-  TYPE_OUTCOME 
+  TYPE_OUTCOME,
+  parseToYearAndMonth
 } from '../utility'
 import {
   MonthPicker,
@@ -14,37 +15,50 @@ import {
   CreateBtn
 } from '../components'
 
-const items = [
+const categoies = {
+  '1': {
+    'id': '1',
+    'name': '旅行',
+    'type': 'outcome',
+    'iconName': 'ios-plane',
+  },
+  '2': {
+    'id': '2',
+    'name': '理财',
+    'type': 'income',
+    'iconName': 'logo-yen'
+  }
+}
+
+const itemss = [
   {
     'id': 1,
     'title': '去云南旅游',
     'price': 200,
     'date': '2022-09-10',
-    'category': {
-      'id': '1',
-      'name': '旅行',
-      'type': 'outcome',
-      'iconName': 'ios-plane'
-    }
+    'cid': 1
   },
   {
     'id': 2,
     'title': '去云南旅游',
     'price': 300,
     'date': '2022-09-10',
-    'category': {
-      'id': '1',
-      'name': '旅行',
-      'type': 'outcome',
-      'iconName': 'ios-plane'
-    }
+    'cid': 1
   }
 ]
 
 export const Home = () =>{
+  const [items, setItems] = useState(itemss)
+  const [currentDate, setCurrentDate] = useState(parseToYearAndMonth())
+  const [tabView, setTabView] = useState(LIST_VIEW)
+
+  const itemsWithCategory = items.map(item => {
+    item.category = categoies[item.cid]
+    return item
+  })
 
   let totalIncome = 0, totalOutcome = 0
-  items.forEach(item => {
+  itemsWithCategory.forEach(item => {
     if (item.category.type === TYPE_OUTCOME) {
       totalOutcome += item.price
     } else {
@@ -61,8 +75,8 @@ export const Home = () =>{
         <div className="row">
           <div className="col">
             <MonthPicker
-              year={2022}
-              month={12}
+              year={currentDate.year}
+              month={currentDate.month}
               onChange={() => {}}
             />
           </div>
@@ -76,12 +90,12 @@ export const Home = () =>{
       </header>
       <div className="content-area py-3 px-3">
         <ViewTab
-          activeTab={LIST_VIEW}
+          activeTab={tabView}
           onTabChange={() => {}}
         />
         <CreateBtn Click={() => {}}/>
         <PriceList
-          items={items}
+          items={itemsWithCategory}
           onModifyItem={() => {}}
           onDeleteItem={() => {}}
         />
