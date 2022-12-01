@@ -9,7 +9,7 @@ export const PriceList = ({
 }) => {
 
   return (
-    <ul className="list-group">
+    <ul className="list-group px-2 pt-2">
       {
         items.map(item => (
           <li
