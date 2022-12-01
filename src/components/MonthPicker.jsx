@@ -42,7 +42,7 @@ export const MonthPicker = ({
         className="btn btn-lg btn-secondary dropdown-toggle"
         onClick={toggleDropdown}
       >
-        {`${year}年 ${padLeft(month)}月`}
+        {`${selectedYear}年 ${padLeft(selectedMonth)}月`}
       </button>
       { isOpen && (
           <div className="dropdown-menu" style={{ display: 'block' }}>

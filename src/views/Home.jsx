@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import logo from '../logo.svg'
 import {
   LIST_VIEW,
-  TYPE_INCOME,
-  TYPE_OUTCOME,
-  parseToYearAndMonth
+  CHART_VIEW
 } from '../utility'
 import {
   MonthPicker,
@@ -14,69 +12,24 @@ import {
   ViewTab,
   CreateBtn
 } from '../components'
-import useFunc from '../hooks/useFunc'
-
-const categoies = {
-  '1': {
-    'id': '1',
-    'name': '旅行',
-    'type': 'outcome',
-    'iconName': 'ios-plane',
-  },
-  '2': {
-    'id': '2',
-    'name': '理财',
-    'type': 'income',
-    'iconName': 'logo-yen'
-  }
-}
-
-const itemss = [
-  {
-    'id': 1,
-    'title': '去云南旅游',
-    'price': 200,
-    'date': '2022-09-10',
-    'cid': 1
-  },
-  {
-    'id': 2,
-    'title': '去云南旅游',
-    'price': 300,
-    'date': '2022-09-10',
-    'cid': 1
-  }
-]
+import useHome from '../hooks/useHome'
 
 export const Home = () =>{
-  const [items, setItems] = useState(itemss)
-  const [currentDate, setCurrentDate] = useState(parseToYearAndMonth())
-  const [tabView, setTabView] = useState(LIST_VIEW)
-
-  const itemsWithCategory = items.map(item => {
-    item.category = categoies[item.cid]
-    return item
-  })
-
-  let totalIncome = 0, totalOutcome = 0
-  itemsWithCategory.forEach(item => {
-    if (item.category.type === TYPE_OUTCOME) {
-      totalOutcome += item.price
-    } else {
-      totalIncome += item.price
-    }
-  })
-  
   const {
+    currentDate,
+    tabView,
+    totalIncome,
+    totalOutcome,
+    itemsWithCategory,
     changeView,
     changeDate,
     modifyItem,
     createItem,
     deleteItem
-  } = useFunc()
+  } = useHome()
   
   return (
-    <>
+    <div className="bg-white">
       <header className="App-header">
         <div className="row mb-5">
           <img src={logo} className="App-logo" alt="logo" />
@@ -103,12 +56,17 @@ export const Home = () =>{
           onTabChange={changeView}
         />
         <CreateBtn Click={createItem}/>
-        <PriceList
-          items={itemsWithCategory}
-          onModifyItem={modifyItem}
-          onDeleteItem={deleteItem}
-        />
+        { tabView === LIST_VIEW && (
+            <PriceList
+              items={itemsWithCategory}
+              onModifyItem={modifyItem}
+              onDeleteItem={deleteItem}
+            />
+        )}
+        { tabView === CHART_VIEW && (
+            <h1>这里是图表</h1>
+        )}
       </div>
-    </>
+    </div>
   )
 }

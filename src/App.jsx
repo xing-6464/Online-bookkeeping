@@ -8,7 +8,7 @@ import {
 
 function App() {
   return (
-    <div className="App">
+    <div className="App mx-2 my-2">
       <Home></Home>
     </div>
   )
