@@ -9,14 +9,14 @@ export const PriceList = ({
 }) => {
 
   return (
-    <ul className="list-group list-group-flush">
+    <ul className="list-group">
       {
         items.map(item => (
           <li
             className="list-group-item d-flex justify-content-between align-items-center row"
             key={item.id}
           >
-            <span className="col-1 badge bg-primary">
+            <span className="col-1 badge">
               <Ioncons
                 className="rounded-circle"
                 fontSize="30px"
