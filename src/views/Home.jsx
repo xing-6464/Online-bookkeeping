@@ -14,6 +14,7 @@ import {
   ViewTab,
   CreateBtn
 } from '../components'
+import useFunc from '../hooks/useFunc'
 
 const categoies = {
   '1': {
@@ -66,6 +67,14 @@ export const Home = () =>{
     }
   })
   
+  const {
+    changeView,
+    changeDate,
+    modifyItem,
+    createItem,
+    deleteItem
+  } = useFunc()
+  
   return (
     <>
       <header className="App-header">
@@ -77,7 +86,7 @@ export const Home = () =>{
             <MonthPicker
               year={currentDate.year}
               month={currentDate.month}
-              onChange={() => {}}
+              onChange={changeDate}
             />
           </div>
           <div className="col">
@@ -91,13 +100,13 @@ export const Home = () =>{
       <div className="content-area py-3 px-3">
         <ViewTab
           activeTab={tabView}
-          onTabChange={() => {}}
+          onTabChange={changeView}
         />
-        <CreateBtn Click={() => {}}/>
+        <CreateBtn Click={createItem}/>
         <PriceList
           items={itemsWithCategory}
-          onModifyItem={() => {}}
-          onDeleteItem={() => {}}
+          onModifyItem={modifyItem}
+          onDeleteItem={deleteItem}
         />
       </div>
     </>
