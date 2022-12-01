@@ -45,6 +45,7 @@ function App() {
       <MonthPicker
         year={2022}
         month={5}
+        onChange={(year, month) => { console.log(year, month) }}
       />
     </div>
   );

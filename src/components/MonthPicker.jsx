@@ -4,9 +4,12 @@ import { padLeft, range } from '../utility'
 
 export const MonthPicker = ({
   year,
-  month
+  month,
+  onChange
 }) => {
   const [ isOpen, setIsOpen ] = useState(false)
+  const [ selectedYear, setSelectedYear ] = useState(year)
+  const [ selectedMonth, setSelectedMonth ] = useState(month)
 
   const monthRange = range(12, 1)
   const yearRange = range(9, -4).map(number => number + year)
@@ -14,6 +17,22 @@ export const MonthPicker = ({
   const toggleDropdown = (e) => {
     e.preventDefault()
     setIsOpen(!isOpen)
+  }
+
+  const activeItem = (activeString, string) => {
+    return activeString === string ? 'dropdown-item active' : 'dropdown-item'
+  }
+
+  const selectYear = (e, yearNumber) => {
+    e.preventDefault()
+    setSelectedYear(yearNumber)
+  }
+
+  const selectMonth = (e, monthNumber) => {
+    e.preventDefault()
+    setSelectedMonth(monthNumber)
+    setIsOpen(false)
+    onChange(selectedYear, selectedMonth)
   }
 
   return (
@@ -30,14 +49,24 @@ export const MonthPicker = ({
             <div className="row">
               <div className="col border-end">
                 { yearRange.map((yearNumber, index) => (
-                  <a href="#" className="dropdown-item" key={index}>
+                  <a
+                    href="#" 
+                    onClick={(e) => { selectYear(e, yearNumber) }}
+                    className={activeItem(yearNumber, selectedYear)}
+                    key={index}
+                  >
                     { yearNumber } 年
                   </a>
                 ))}
               </div>
               <div className="col">
                 { monthRange.map((monthNumber, index) => (
-                  <a href="#" className="dropdown-item" key={index}>
+                  <a 
+                    href="#" 
+                    onClick={(e) => { selectMonth(e, monthNumber) }}
+                    className={activeItem(monthNumber, selectedMonth)}
+                    key={index}
+                  >
                     { padLeft(monthNumber) } 月
                   </a>
                 ))}
@@ -48,4 +77,10 @@ export const MonthPicker = ({
       }
     </div>
   )
+}
+
+MonthPicker.propTypes = {
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired
 }
